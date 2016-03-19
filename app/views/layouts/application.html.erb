@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= yield(:title) %> | Insert Generic title to the left</title>
+  <title><%=add_title_text(yield(:title))%></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
 </head>
 <body>
-<h1><%= yield(:title) %> | Insert Generic <em>header</em> to the left</h1>
+<h1><%=add_header_text(yield(:title))%></h1>
 
 <%= yield %>
   <p>
