@@ -20,11 +20,9 @@ textarea {
 
 .center {
   text-align: center;
-  
-}
-
-.center h1 {
-  margin-bottom: 10px
+  h1 {
+    margin-bottom: 10px;
+  }
 }
 
 h1 {
@@ -44,32 +42,31 @@ h2 {
   padding-top: 9px;
   padding-bottom: 9px;
   font-weight: bold;
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
-#logo:hover {
-  color: #fff;
-  text-decoration: none;
-}
+/* footer */
 
 footer {
   margin-top: 45px;
   color: #999999;
+  a {
+    color: #555;
+    &:hover {
+      color: #222;
+    }
+  }
+  ul {
+    list-style-type: none;
+    float: right;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
 }
 
-footer a {
-  color: #555;
-}
 
-footer a:hover {
-  color: #222;
-}
-
-footer ul {
-  list-style: none;
-  float: right;
-}
-
-footer ul li {
-  float: left;
-  margin-left: 15px;
-}
