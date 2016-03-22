@@ -6,8 +6,6 @@ module ApplicationHelper
   end
 
   def add_header_text(title)
-    base_header_text = 'My first app header'
-    return "#{title} | #{base_header_text}" unless title.blank? || title.nil?
-    # base_header_text
+    title
   end
 end
