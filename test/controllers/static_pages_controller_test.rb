@@ -2,7 +2,7 @@ require 'test_helper'
 
 class StaticPagesControllerTest < ActionController::TestCase
   def setup
-    @genric_title = "Generic title here :)"
+    @genric_title = "My first app"
   end
   test "should get home" do
     get :home
@@ -26,7 +26,7 @@ class StaticPagesControllerTest < ActionController::TestCase
   test 'should get contact' do
     get :contact
     assert_response :success
-    assert_select "title", "Contacct | #{@genric_title}"
+    assert_select "title", "Contact | #{@genric_title}"
   end
 
 end
