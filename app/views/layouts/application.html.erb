@@ -10,6 +10,7 @@
 <body>
   <%= render 'layouts/header' %>
   <div class="container">
+    <h1 class="center"><%= add_header_text(yield(:title)) %></h1>
     <%= yield %>
     <%= render 'layouts/footer' %>
   </div>
