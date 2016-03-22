@@ -1,0 +1,13 @@
+<div class="center jumbotron">
+  <h1> Welcome to the Home Page</h1>
+
+  <h2>
+    This is my first rails app :)
+  </h2>
+
+  <%= link_to "Sign up", '#', class: "btn btn-lg btn-primary" %>
+</div>
+
+<!-- image_tag helper auto finds images in app/assets/images in this case app/assets/images/rails.png-->
+<%= link_to image_tag("rails.png", alt: "Rails logo"),
+            'http://rubyonrails.org/' %>
