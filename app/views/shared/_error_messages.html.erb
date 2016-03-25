@@ -1,0 +1,13 @@
+<!-- shared views by convention used by multiple views -->
+<% if @user.errors.any? %>
+  <div id="show_errors">
+    <div id="error_count_box" class="alert alert-danger"> <!-- alert and alter-danger is specific to bootstrap -->
+    The form contains <%= pluralize(@user.errors.count,'error') %>
+    </div>
+    <ul>
+      <% @user.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
