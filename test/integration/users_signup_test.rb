@@ -22,6 +22,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
         password_confirmation: "wordsa1"
       }
       assert_template 'users/show' # assert the rendered template is indeed the show view
+      assert_not flash.empty? # something should be displayed then if flash not empty
     end
   end
 

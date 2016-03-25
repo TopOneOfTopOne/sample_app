@@ -10,7 +10,7 @@
 <body>
   <%= render 'layouts/header' %>
   <% flash.each do |msg_type, msg| %>
-    <div class="alert alert-<%= msg_type %>"><%= msg %></div> <!-- bootstrap has special sytles for success, danger, info, warning -->
+    <%= content_tag(:div, msg, class: "alert alter-#{msg_type}") %> <!-- bootstrap has special sytles for success, danger, info, warning -->
   <% end %>
   <div class="container">
     <h1 class="center"><%= add_header_text(yield(:title)) %></h1>
