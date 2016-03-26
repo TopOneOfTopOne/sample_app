@@ -84,6 +84,24 @@ footer {
   @include box_sizing;
 }
 
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+    margin-top: 20px;
+  }
+}
+
+#session_remember_me {
+  width: auto;
+  margin-left: 0;
+}
+
+
+
+
 /* sidebar */
 
 aside {
@@ -144,3 +162,4 @@ input {
     color: $state-danger-text;
   }
 }
+
