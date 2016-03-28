@@ -16,8 +16,10 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
-  # returns the current logged in user if any
-  # storing current user in a variable is good because you do not have as many calls to the database
+  # Returns the current logged in user if any.
+  # log in user if permanent session i.e. use of cookies. Because user maybe opening browser, hence they must be logged in
+  # if they opted for permanent session.
+  # Storing current user in a variable is good because you do not have as many calls to the database (dubious claim)
   def current_user
     if user_id = session[:user_id]
       @current_user ||= User.find_by(id: user_id) # find cannot be used because it returns and error when :user_id is nil
@@ -31,7 +33,6 @@ module SessionsHelper
   end
 
   def logged_in?
-
     !current_user.nil?
   end
 
