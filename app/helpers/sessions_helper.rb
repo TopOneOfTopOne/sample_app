@@ -1,5 +1,7 @@
 module SessionsHelper
 
+  # session and cookies are methods but behave much like hashes
+
   def log_in(user)
     session[:user_id] = user.id
   end
@@ -58,8 +60,10 @@ module SessionsHelper
     session.delete(:forwarding_url) # critical, otherwise subsequent calls will redirect incorrectly
   end
 
-  # Only GET requests since they are the only valid urls users can submit in browser
-  def store_forwarding_url
-    session[:forwarding_url] = request.url if request.get?
-  end
+  private
+
+    # Only GET requests since they are the only valid urls users can submit in browser
+    def store_forwarding_url
+      session[:forwarding_url] = request.url if request.get?
+    end
 end

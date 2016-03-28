@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:destroy]
+  before_action :logged_in_user, only: [:edit, :update, :destroy] # want users to login before following actions
+  before_action :correct_user, only: [:edit, :update] # ensure only user can edit own profile
+  before_action :admin_user, only: [:destroy] # ensure only admin can execute destroy action
 
   def index
     @users = User.paginate(page: params[:page])
@@ -50,14 +50,15 @@ class UsersController < ApplicationController
 
   private
 
+    # only the following params maybe processed, this prevents users from setting admin: true
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
-  # Require users to login to an account(unless logged in already) in order to edit account
-  #
-  # Store url which caused this method to execute, once logged in
-  # user can be redirected back to forwarding url
+    # Require users to login to an account(unless logged in already) in order to edit account
+    #
+    # Store url which caused this method to execute, once logged in
+    # user can be redirected back to forwarding url
     def logged_in_user
       unless logged_in?
         store_forwarding_url # store url which caused this method to execute

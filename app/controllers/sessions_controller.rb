@@ -2,6 +2,8 @@ class SessionsController < ApplicationController
   def new
   end
 
+  # Creates a new user session with cookies if remember_me checkbox is selected
+  # otherwise the session only lasts as long as the browser is open
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
