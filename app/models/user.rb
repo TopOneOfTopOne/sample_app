@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
             format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
 
   has_secure_password # this method gives ability to save securely hashed password_digest attribute to database, authenticate method that returns user when the password is correct and false otherwise
-  validates :password, presence:true, length: {minimum: 6}
+  validates :password, presence:true, length: {minimum: 6}, allow_nil: true # allow_nil allows empty passwords however during signup this will not be allowed because of has_secure_password
 
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
