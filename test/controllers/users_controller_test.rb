@@ -5,6 +5,7 @@ class UsersControllerTest < ActionController::TestCase
   def setup
     @user = users(:jack)
     @other_user = users(:david)
+    @admin_user = users(:don)
   end
 
   test "should get new" do
@@ -34,5 +35,37 @@ class UsersControllerTest < ActionController::TestCase
     log_in_as(@user)
     get :update, id: @other_user.id
     assert_redirected_to root_url
+  end
+
+  test "should redirect when destroying not logged in" do
+    delete :destroy, id: @user.id
+    assert_redirected_to login_url
+  end
+
+  test "should redirect when destroying non-admin" do
+    log_in_as(@user)
+    delete :destroy, id: @other_user.id
+    assert_redirected_to root_url
+  end
+
+  test "should delete user when destroying as admin" do
+    log_in_as(@admin_user)
+    assert_difference('User.count', -1) do
+      delete :destroy, id: @user.id
+    end
+    assert_redirected_to users_path
+  end
+
+  test "should not allow admin attribute to be updated" do
+    log_in_as(@user)
+    patch :update, id: @user.id, user: {
+        name: 'jack',
+        email: 'jack@lol.com',
+        password: 'asd123',
+        password_confirmation: 'asd123',
+        admin: true
+    }
+    assert_not @user.reload.admin?
+
   end
 end
