@@ -163,3 +163,13 @@ input {
   }
 }
 
+/* index */
+.users {
+  margin: 0;
+  li {
+    padding: 10px 0;
+    overflow: auto;
+    border-bottom: $gray-lighter;
+  }
+}
+
