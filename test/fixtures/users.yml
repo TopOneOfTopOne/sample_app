@@ -13,6 +13,7 @@ don:
   name: don
   email: don@donmail.com
   password_digest: <%= User.digest('password') %>
+  admin: true
 
 <% 30.times do |n| %>
 user_<%= n %>:

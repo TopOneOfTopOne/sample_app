@@ -8,6 +8,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     get edit_user_path(@user)
     log_in_as(@user)
     assert_redirected_to edit_user_path(@user)
+    log_in_as(@user)
+    assert_redirected_to @user
     patch user_path(@user), user: { name:             '',
                                     email:                 '',
                                     password:              '',

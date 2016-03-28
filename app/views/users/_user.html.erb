@@ -1,0 +1,9 @@
+
+<li>
+  <a href="<%=user_url(user)%>"><%= gravatar_for(user, size: 50) %></a>
+  <%= link_to user.name, user %>
+  <% if !current_user.nil? && current_user.admin? %>
+    |
+    <%= link_to "Destroy", user, method: :delete, data: {confirm: "Are you sure?"} %>
+  <% end %>
+</li>
