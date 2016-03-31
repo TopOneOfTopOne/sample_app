@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
     # Add "debugger" method to pause execution and inspect what is going on # method included from byebug gem
   end
 
@@ -53,18 +54,6 @@ class UsersController < ApplicationController
     # only the following params maybe processed, this prevents users from setting admin: true
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
-
-    # Require users to login to an account(unless logged in already) in order to edit account
-    #
-    # Store url which caused this method to execute, once logged in
-    # user can be redirected back to forwarding url
-    def logged_in_user
-      unless logged_in?
-        store_forwarding_url # store url which caused this method to execute
-        flash[:danger] = "Please login to execute action"
-        redirect_to login_path
-      end
     end
 
     def admin_user

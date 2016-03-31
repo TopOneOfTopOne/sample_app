@@ -1,6 +1,8 @@
 # some database adapters use case-sensitive indicies but in this scenario we don't want this so we use a callback
 
 class User < ActiveRecord::Base
+  has_many :microposts, dependent: :destroy
+
   attr_accessor :remember_token
 
   before_save {self.email = email.downcase} # <= callback # store all emails in lowercase # could be written as self.email = self.email.downcase or simply email.downcase!
@@ -41,5 +43,10 @@ class User < ActiveRecord::Base
   def authenticated?(remember_token)
     return nil if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  def feed
+    # using the ? allows id to be properly escaped before querying databse this prevents sql injection attaacks
+    Micropost.where('user_id = ?', id)
   end
 end

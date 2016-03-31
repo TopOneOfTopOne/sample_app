@@ -1,0 +1,4 @@
+<ol class="microposts">
+  <%= render @feed_items %> <!-- rails knows to render _micropost partial because each item in @feed_items is of class Micropost -->
+</ol>
+<%= will_paginate @feed_items %>
