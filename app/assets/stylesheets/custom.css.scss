@@ -55,6 +55,10 @@ h2 {
   }
 }
 
+.gravatar {
+  display: block;
+}
+
 /* footer */
 
 footer {
@@ -173,3 +177,34 @@ input {
   }
 }
 
+/* microposts */
+.microposts {
+  list-style: none;
+  li {
+    padding: 10px;
+    border-top: 1px solid $gray-lighter;
+
+  }
+  .gravatar {
+    float: left;
+    margin-top: 5px;
+  }
+
+  .name {
+    display: block;
+  }
+
+  .content {
+    display: block;
+  }
+  
+  .timestamp {
+    display: block;
+    color: $gray-light;
+  }
+}
+
+#microposts-header {
+  display: block;
+
+}

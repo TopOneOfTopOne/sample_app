@@ -27,6 +27,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'faker', '~> 1.4.2' # faker gem helps create realistic names and emails
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'carrierwave'
+gem 'fog'
+gem 'mini_magick'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
