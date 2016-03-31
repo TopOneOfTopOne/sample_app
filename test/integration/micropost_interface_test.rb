@@ -9,13 +9,17 @@ class MicropostInterfaceTest < ActionDispatch::IntegrationTest
   test "micropost interface" do
     log_in_as(@user)
     get home_path
-    # valid submission
+    assert_select 'input[type=submit]'
+    assert_select 'textarea', id: 'micropost_content'
     assert_template "static_pages/home"
+    picture = fixture_file_upload('test/fixtures/rails.png','image/png')
+    # valid submission
     assert_difference('Micropost.count', 1) do
-      post microposts_path micropost: {content: 'hello'}
+      post microposts_path micropost: {content: 'hello', picture: picture}
     end
     assert_redirected_to root_url
     follow_redirect!
+    assert_select 'img', alt: 'rails'
     # invalid submission
     # assert_no_difference('Micropost.count') do
     #   post microposts_path micropost: {content: ''}
