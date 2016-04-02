@@ -24,4 +24,11 @@ class FollowingTest < ActionDispatch::IntegrationTest
       assert_select 'a[href=?]', user_path(user)
     end
   end
+
+  test "following" do
+
+    assert_difference 'Relationship.count', 1 do
+      post following_user_path, followed_id: @other_user.id
+    end
+  end
 end
