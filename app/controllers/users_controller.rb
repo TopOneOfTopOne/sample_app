@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update, :destroy] # want users to login before following actions
+  before_action :logged_in_user, only: [:edit, :update, :destroy, :following, :followers] # want users to login before following actions
   before_action :correct_user, only: [:edit, :update] # ensure only user can edit own profile
   before_action :admin_user, only: [:destroy] # ensure only admin can execute destroy action
 
@@ -47,6 +47,20 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:success] = "You destroyed #{name}"
     redirect_to users_url
+  end
+
+  def following
+    @title = "Following"
+    @user = User.find_by(id: params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follows'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find_by(id: params[:id])
+    @users = @user.followers.paginate(page:  params[:page])
+    render 'show_follows'
   end
 
   private

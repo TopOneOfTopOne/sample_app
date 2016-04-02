@@ -3,6 +3,14 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
 
+  has_many :active_relationships, foreign_key: 'follower_id',
+           class_name: 'Relationship', dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+
+  has_many :passive_relationships, foreign_key: 'followed_id',
+           class_name: 'Relationship', dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower # source is not needed but just to highlight the symmetry
+
   attr_accessor :remember_token
 
   before_save {self.email = email.downcase} # <= callback # store all emails in lowercase # could be written as self.email = self.email.downcase or simply email.downcase!
@@ -48,5 +56,17 @@ class User < ActiveRecord::Base
   def feed
     # using the ? allows id to be properly escaped before querying databse this prevents sql injection attaacks
     Micropost.where('user_id = ?', id)
+  end
+
+  def follow(user)
+    active_relationships.create(followed_id: user.id)
+  end
+
+  def unfollow(user)
+    active_relationships.find_by(followed_id: user.id).destroy
+  end
+
+  def following?(user)
+    following.include?(user)
   end
 end

@@ -9,6 +9,14 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
-  resources :users
+
   resources :microposts, only: [:create, :destroy]
+  resources :users do # provides standard mappings to controllers
+    member do
+      get 'following', 'followers' # maps to following and followers action in controller and gives users/:id/following, users/:id/followers routes
+    end
+  end
+
+  resources :relationships, only: [:create, :destroy]
+
 end
