@@ -26,9 +26,33 @@ class FollowingTest < ActionDispatch::IntegrationTest
   end
 
   test "following" do
+    @user.unfollow(@other_user) if @user.following?(@other_user)
+    assert_difference '@user.following.count', 1 do
+      post relationships_path, followed_id: @other_user.id
+    end
+  end
 
-    assert_difference 'Relationship.count', 1 do
-      post following_user_path, followed_id: @other_user.id
+  test "unfollowing" do
+    @user.follow(@other_user) unless @user.following?(@other_user)
+    relationship = @user.active_relationships.find_by(followed_id: @other_user.id)
+    assert_difference '@user.following.count', -1 do
+      delete relationship_path(relationship), relationship: relationship.id
+    end
+  end
+
+  test "following button" do
+    @user.unfollow(@other_user) if @user.following?(@other_user)
+    assert_difference '@user.following.count', 1 do
+      xhr :post, relationships_path, followed_id: @other_user.id
+    end
+  end
+
+  test "unfollow button" do
+
+    @user.follow(@other_user) unless @user.following?(@other_user)
+    relationship = @user.active_relationships.find_by(followed_id: @other_user.id)
+    assert_difference '@user.following.count', -1 do
+      xhr :delete, relationship_path(relationship), relationship: relationship.id
     end
   end
 end
