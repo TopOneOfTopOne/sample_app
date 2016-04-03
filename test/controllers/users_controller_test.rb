@@ -77,4 +77,12 @@ class UsersControllerTest < ActionController::TestCase
     get :followers, id: @user
     assert_redirected_to login_url
   end
+
+  test "#feed" do
+    user_feed = @user.feed
+    user_microposts = Micropost.find_by(user_id: @user.id)
+    other_user_microposts = Micropost.find_by(user_id: @other_user.id)
+    assert user_feed.include?(user_microposts)
+    assert user_feed.include?(other_user_microposts)
+  end
 end

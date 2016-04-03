@@ -55,7 +55,11 @@ class User < ActiveRecord::Base
 
   def feed
     # using the ? allows id to be properly escaped before querying databse this prevents sql injection attaacks
-    Micropost.where('user_id = ?', id)
+    #
+    # Micropost.where('user_id IN (?) OR user_id = (?)', following_ids, id) can be used but if is inefficient since calling following_ids will pull
+    # all ids in memory, using SQL can optimize this
+    following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id",user_id: id)
   end
 
   def follow(user)
